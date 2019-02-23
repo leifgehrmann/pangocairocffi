@@ -1,7 +1,7 @@
 pangocairocffi
 ==============
 
-pangocairocffi is a `CFFI`_-based set of Python bindings for the `cairo rendering methods with pango`_. It extends the pangocffi_ module and is used in conjunction with cairocffi_.
+pangocairocffi is a `CFFI`_-based set of Python bindings for the `cairo rendering methods with pango`_. It is meant to be used in conjunction with cairocffi_ and pangocffi_.
 
 Usage
 _____
