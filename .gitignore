@@ -1,0 +1,18 @@
+# Build artifacts
+.eggs
+*.egg-info
+build
+dist
+__pycache__
+
+# Build artifacts specific to pangocffi
+_generated
+
+# Virtualenv
+venv
+
+# PyCharm
+.idea
+
+# Test artifacts
+tests/output/*
