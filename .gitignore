@@ -5,7 +5,7 @@ build
 dist
 __pycache__
 
-# Build artifacts specific to pangocffi
+# Build artifacts specific to pangocairocffi
 _generated
 
 # Virtualenv

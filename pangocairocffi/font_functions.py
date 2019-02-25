@@ -17,8 +17,10 @@ def get_resolution(context: Context) -> float:
 
 
 def set_font_options(context: Context, options: ctypes.c_void_p) -> None:
-    pangocairo.pango_cairo_context_set_font_options(context.get_pointer(), options)
+    context_pointer = context.get_pointer()
+    pangocairo.pango_cairo_context_set_font_options(context_pointer, options)
 
 
 def get_font_options(context: Context) -> ctypes.c_void_p:
-    return pangocairo.pango_cairo_context_get_font_options(context.get_pointer())
+    context_pointer = context.get_pointer()
+    return pangocairo.pango_cairo_context_get_font_options(context_pointer)
