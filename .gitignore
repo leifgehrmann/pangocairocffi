@@ -1,18 +1,31 @@
 # Build artifacts
 .eggs
 *.egg-info
-build
-dist
+/build
+/dist
 __pycache__
 
 # Build artifacts specific to pangocairocffi
 _generated
 
+# Test artifacts
+tests/output/*
+
 # Virtualenv
 venv
+
+# Tox
+.tox
 
 # PyCharm
 .idea
 
-# Test artifacts
-tests/output/*
+# Code Coverage
+/.coverage
+/htmlcov
+
+# Documentation
+/docs/_build
+
+# Mac OS
+.DS_store
