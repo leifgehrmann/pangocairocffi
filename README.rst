@@ -1,12 +1,30 @@
 pangocairocffi
 ==============
 
-pangocairocffi is a `CFFI`_-based set of Python bindings for the `cairo rendering methods with pango`_. It is meant to be used in conjunction with cairocffi_ and pangocffi_.
+.. image:: https://img.shields.io/pypi/v/pangocairocffi.svg
+    :target: https://pypi.python.org/pypi/pangocairocffi
+    :alt: Latest PyPi Release
+
+.. image:: https://img.shields.io/pypi/pyversions/pangocairocffi.svg?style=flat
+    :target: https://pypi.python.org/pypi/pangocairocffi
+    :alt: Supported Python Versions
+
+.. image:: https://travis-ci.org/leifgehrmann/pangocairocffi.svg?branch=master
+    :target: https://travis-ci.org/leifgehrmann/pangocairocffi
+
+.. image:: https://readthedocs.org/projects/pangocairocffi/badge/?version=latest
+    :target: https://pangocairocffi.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+
+pangocairocffi is a `CFFI`_-based set of Python bindings for the
+`cairo rendering methods with pango`_. It is meant to be used in
+conjunction with cairocffi_ and pangocffi_.
 
 Usage
 _____
 
-.. code-block::
+Below is a rough example of how to use pangocairocffi together with
+pangocffi and cairocffi::
 
    import pangocairocffi
    from pangocffi import Alignment
@@ -35,7 +53,7 @@ _____
 Running tests
 _____________
 
-.. code-block::
+Tests can be run using ``pytest``::
 
    python setup.py test
 

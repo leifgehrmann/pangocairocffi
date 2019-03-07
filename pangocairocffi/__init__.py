@@ -37,10 +37,13 @@ pangocairo = _dlopen(ffi, 'pangocairo-1.0')
 # from .pango_cairo_font_map import PangoCairoFontMap
 
 def _get_cairo_t_from_cairo_ctx(cairo_context: cairocffi.Context):
-    # Cairo does not give access to the pointer publicly. So this is the best we can do.
+    # Cairo does not give access to the pointer publicly. So this is the best
+    # we can do.
     # noinspection PyProtectedMember
     return cairo_context._pointer  # noqa
 
 
 from .render_functions import *  # noqa
 from .create_update_functions import *  # noqa
+from .font_functions import *  # noqa
+from .font_map import PangoCairoFontMap  # noqa
