@@ -5,5 +5,6 @@ Documentation
 
 .. toctree::
 
+    overview
     modules
     changelog
