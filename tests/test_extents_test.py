@@ -1,7 +1,6 @@
 import cairocffi
 import pangocffi
 import pangocairocffi
-import logging
 from typing import Tuple
 import math
 
@@ -266,12 +265,6 @@ def _show_label(
 
 
 def test_pdf():
-    # this line is important
-    logging.basicConfig()
-    log = logging.getLogger("LOG")
-    log.addHandler(logging.StreamHandler())
-    log.setLevel(logging.DEBUG)
-
     filename = 'tests/output/extents.pdf'
     pt_per_mm = 72 / 25.4
     width, height = 210 * pt_per_mm, 297 * pt_per_mm  # A4 portrait
