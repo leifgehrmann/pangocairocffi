@@ -47,7 +47,7 @@ def _show_character_extents(
         context: cairocffi.Context,
         layout: pangocffi.Layout
 ):
-    layout_iter = pangocffi.LayoutIterator(layout)
+    layout_iter = layout.get_iter()
     context.set_line_width(0.5)
     context.set_dash([1, 1])
     alternate = True
@@ -69,7 +69,7 @@ def _show_cluster_ink_extents(
         context: cairocffi.Context,
         layout: pangocffi.Layout
 ):
-    layout_iter = pangocffi.LayoutIterator(layout)
+    layout_iter = layout.get_iter()
     context.set_line_width(0.5)
     context.set_dash([1, 1])
     alternate = True
@@ -91,7 +91,7 @@ def _show_cluster_logical_extents(
         context: cairocffi.Context,
         layout: pangocffi.Layout
 ):
-    layout_iter = pangocffi.LayoutIterator(layout)
+    layout_iter = layout.get_iter()
     context.set_line_width(0.5)
     context.set_dash([1, 1])
     alternate = True
@@ -113,7 +113,7 @@ def _show_run_ink_extents(
         context: cairocffi.Context,
         layout: pangocffi.Layout
 ):
-    layout_iter = pangocffi.LayoutIterator(layout)
+    layout_iter = layout.get_iter()
     context.set_line_width(0.5)
     context.set_dash([1, 1])
     alternate = True
@@ -135,7 +135,7 @@ def _show_run_logical_extents(
         context: cairocffi.Context,
         layout: pangocffi.Layout
 ):
-    layout_iter = pangocffi.LayoutIterator(layout)
+    layout_iter = layout.get_iter()
     context.set_line_width(0.5)
     context.set_dash([1, 1])
     alternate = True
@@ -157,14 +157,13 @@ def _show_layout_line_ink_extents(
         context: cairocffi.Context,
         layout: pangocffi.Layout
 ):
-    layout_iter = pangocffi.LayoutIterator(layout)
+    layout_iter = layout.get_iter()
     context.set_line_width(0.5)
     context.set_dash([1, 1])
     alternate = True
     while True:
         alternate = not alternate
         extents = layout_iter.get_line_extents()
-
         context.set_source_rgba(0, 0, 1 if alternate else 0.5, 0.9)
         _rectangle_path(context, extents[0])
         context.stroke()
@@ -179,14 +178,13 @@ def _show_layout_line_logical_extents(
         context: cairocffi.Context,
         layout: pangocffi.Layout
 ):
-    layout_iter = pangocffi.LayoutIterator(layout)
+    layout_iter = layout.get_iter()
     context.set_line_width(0.5)
     context.set_dash([1, 1])
     alternate = True
     while True:
         alternate = not alternate
         extents = layout_iter.get_line_extents()
-
         context.set_source_rgba(0, 0, 1 if alternate else 0.5, 0.9)
         _rectangle_path(context, extents[1])
         context.stroke()
@@ -197,11 +195,99 @@ def _show_layout_line_logical_extents(
             break
 
 
+def _show_layout_y_ranges(
+        context: cairocffi.Context,
+        layout: pangocffi.Layout
+):
+    layout_iter = layout.get_iter()
+    context.set_line_width(0.5)
+    context.set_dash([1, 1])
+    alternate = True
+    while True:
+        alternate = not alternate
+        extents = layout_iter.get_line_extents()
+        y_ranges = layout_iter.get_line_yrange()
+
+        context.set_source_rgba(0, 0, 1 if alternate else 0.5, 0.9)
+        context.move_to(
+            pangocffi.units_to_double(extents[0].x),
+            pangocffi.units_to_double(y_ranges[0])
+        )
+        context.line_to(
+            pangocffi.units_to_double(extents[0].x + extents[0].width),
+            pangocffi.units_to_double(y_ranges[0])
+        )
+        context.stroke()
+
+        context.move_to(
+            pangocffi.units_to_double(extents[0].x),
+            pangocffi.units_to_double(y_ranges[1])
+        )
+        context.line_to(
+            pangocffi.units_to_double(extents[0].x + extents[0].width),
+            pangocffi.units_to_double(y_ranges[1])
+        )
+        context.stroke()
+
+        if not layout_iter.next_run():
+            break
+
+
+def _show_layout_baseline(
+        context: cairocffi.Context,
+        layout: pangocffi.Layout
+):
+    layout_iter = layout.get_iter()
+    context.set_line_width(0.5)
+    context.set_dash([1, 1])
+    while True:
+        extents = layout_iter.get_line_extents()
+        baseline = layout_iter.get_baseline()
+        y_ranges = layout_iter.get_line_yrange()
+
+        context.set_source_rgba(1, 0, 0, 0.9)
+        context.move_to(
+            pangocffi.units_to_double(extents[0].x),
+            pangocffi.units_to_double(y_ranges[0])
+        )
+        context.line_to(
+            pangocffi.units_to_double(extents[0].x + extents[0].width),
+            pangocffi.units_to_double(y_ranges[0])
+        )
+        context.stroke()
+
+        context.set_source_rgba(0, 1, 0, 0.9)
+        context.stroke()
+        context.move_to(
+            pangocffi.units_to_double(extents[0].x),
+            pangocffi.units_to_double(baseline)
+        )
+        context.line_to(
+            pangocffi.units_to_double(extents[0].x + extents[0].width),
+            pangocffi.units_to_double(baseline)
+        )
+        context.stroke()
+
+        context.set_source_rgba(0, 0, 1, 0.9)
+        context.move_to(
+            pangocffi.units_to_double(extents[0].x),
+            pangocffi.units_to_double(y_ranges[1])
+        )
+        context.line_to(
+            pangocffi.units_to_double(extents[0].x + extents[0].width),
+            pangocffi.units_to_double(y_ranges[1])
+        )
+        context.stroke()
+
+        if not layout_iter.next_run():
+            break
+
+
 def _show_layout_ink_extents(
         context: cairocffi.Context,
         layout: pangocffi.Layout
 ):
-    layout_iter = pangocffi.LayoutIterator(layout)
+    layout_iter = layout.get_iter()
     context.set_line_width(0.5)
     context.set_dash([1, 1])
     alternate = True
@@ -223,7 +309,7 @@ def _show_layout_logical_extents(
         context: cairocffi.Context,
         layout: pangocffi.Layout
 ):
-    layout_iter = pangocffi.LayoutIterator(layout)
+    layout_iter = layout.get_iter()
     context.set_line_width(0.5)
     context.set_dash([1, 1])
     alternate = True
@@ -267,7 +353,7 @@ def _show_label(
 def test_pdf():
     filename = 'tests/output/extents.pdf'
     pt_per_mm = 72 / 25.4
-    width, height = 210 * pt_per_mm, 297 * pt_per_mm  # A4 portrait
+    width, height = 210 * pt_per_mm, 400 * pt_per_mm  # A4 portrait
     surface = cairocffi.PDFSurface(filename, width, height)
     ctx = cairocffi.Context(surface)
     ctx.translate(width / 2, 10)
@@ -279,9 +365,9 @@ def test_pdf():
                       'The text layout engine library for displaying '
                       '<span font-weight="bold">multi-language</span> text!')
 
-    translate_y = 90
+    translate_y = 110
     label_pos = (-width / 2 + 30, 30)
-    label_width = width / 2
+    label_width = width / 2.5
 
     _show_layout_logical_extents(ctx, layout)
     _show_layout(ctx, layout)
@@ -301,6 +387,16 @@ def test_pdf():
     _show_layout_line_ink_extents(ctx, layout)
     _show_layout(ctx, layout)
     _show_label(ctx, label_pos, label_width, 'Layout Line (ink extents)')
+    ctx.translate(0, translate_y)
+
+    _show_layout_baseline(ctx, layout)
+    _show_layout(ctx, layout)
+    _show_label(
+        ctx,
+        label_pos,
+        label_width,
+        'y-range (top), Baseline,\ny-range (bottom)'
+    )
     ctx.translate(0, translate_y)
 
     _show_run_logical_extents(ctx, layout)
