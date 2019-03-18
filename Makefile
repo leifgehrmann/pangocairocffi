@@ -29,7 +29,10 @@ BROWSER := python -c "$$BROWSER_PYSCRIPT"
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-clean: clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
+clean: clean-generated-ffi clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
+
+clean-generated-ffi: ## remove FFI generated artifacts
+	rm -fr pangocairocffi/_generated/
 
 clean-build: ## remove build artifacts
 	rm -fr build/
@@ -57,7 +60,7 @@ lint: ## check style with flake8
 tests: ## run tests quickly with the default Python
 	python setup.py test
 
-tests-all: ## run tests on all minor python versions
+tests-all: clean ## run tests on all minor python versions
 	tox
 
 coverage: ## check code coverage quickly with the default Python
