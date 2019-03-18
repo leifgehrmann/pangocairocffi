@@ -43,10 +43,10 @@ class PangoCairoFontMap:
         """
         self._init_pointer(pangocairo.pango_cairo_font_map_new())
 
-    def _init_pointer(self, pointer: ctypes.c_void_p):
+    def _init_pointer(self, pointer: ffi.CData):
         self._pointer = pointer
 
-    def get_pointer(self) -> ctypes.c_void_p:
+    def get_pointer(self) -> ffi.CData:
         """
         Returns the pointer to the font map
 
@@ -56,7 +56,7 @@ class PangoCairoFontMap:
         return self._pointer
 
     @classmethod
-    def from_pointer(cls, pointer: ctypes.c_void_p) -> 'PangoCairoFontMap':
+    def from_pointer(cls, pointer: ffi.CData) -> 'PangoCairoFontMap':
         """
         Instantiates a :class:`PangoCairoFontMap` from a pointer.
 
@@ -72,7 +72,7 @@ class PangoCairoFontMap:
     @classmethod
     def from_cairo_font_type(
             cls,
-            cairo_font_type_pointer: ctypes.c_void_p
+            cairo_font_type_pointer: ffi.CData
     ) -> 'PangoCairoFontMap':
         """
         Instantiates a :class:`PangoCairoFontMap` from a Cairo context.
@@ -90,7 +90,7 @@ class PangoCairoFontMap:
             return self.get_pointer() == other.get_pointer()
         return NotImplemented
 
-    def get_cairo_font_type_pointer(self) -> ctypes.c_void_p:
+    def get_cairo_font_type_pointer(self) -> ffi.CData:
         """
         Returns the pointer to the type of Cairo font backend that ``fontmap``
         uses

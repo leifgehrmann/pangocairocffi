@@ -6,7 +6,7 @@ from . import ffi
 
 
 # Todo: pangocairo.Font needs to be implemented
-# def get_cairo_scaled_font_pointer(font: Font) -> ctypes.c_void_p:
+# def get_cairo_scaled_font_pointer(font: Font) -> ffi.CData:
 #     """
 #     Gets the cairo_scaled_font_t used by font . The scaled font can be
 #     referenced and kept using ``cairo_scaled_font_reference()``.
@@ -51,7 +51,7 @@ def get_resolution(context: Context) -> float:
 
 def set_font_options(
         context: Context,
-        options: Optional[ctypes.c_void_p]
+        options: Optional[ffi.CData]
 ) -> None:
     """
     Sets the font options used when rendering text with this context.
@@ -70,7 +70,7 @@ def set_font_options(
     pangocairo.pango_cairo_context_set_font_options(context_pointer, options)
 
 
-def get_font_options(context: Context) -> Optional[ctypes.c_void_p]:
+def get_font_options(context: Context) -> Optional[ffi.CData]:
     """
         Retrieves any font rendering options previously set with
         pango_cairo_context_set_font_options(). This function does not report
