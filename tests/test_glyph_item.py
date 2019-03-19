@@ -46,6 +46,22 @@ def render_run_glyph_items(
             break
 
 
+def split_until_next_value_glyph_item(
+        glyph_item: pangocffi.GlyphItem,
+        text: str
+) -> pangocffi.GlyphItem:
+    for i in range(1, 20):
+        print("Huh? %d" % glyph_item.item.length)
+        if i >= glyph_item.item.length:
+            print("????????? %d" % glyph_item.item.length)
+            break
+        try:
+            return glyph_item.split(text, i)
+        except ValueError:
+            pass
+    return glyph_item
+
+
 def get_clusters_from_glyph_item(
         glyph_item: pangocffi.GlyphItem,
         text: str
@@ -65,15 +81,33 @@ def get_clusters_from_glyph_item(
     :return:
         an array og individual glyph items
     """
+    print("-----------")
     cluster_glyph_items = []
     glyph_item_iter = pangocffi.GlyphItemIter()
-    has_next_cluster = glyph_item_iter.init_start(glyph_item, text)
+    #has_next_cluster = glyph_item_iter.init_start(glyph_item, text)
     copied_glyph_item = glyph_item.copy()
-    while has_next_cluster:
+    print(text.encode()[glyph_item.item.offset:
+                        glyph_item.item.offset + glyph_item.item.length].decode(
+        'utf-8'))
+    while True:
         length = abs(glyph_item_iter.end_char - glyph_item_iter.start_char)
-        if copied_glyph_item.item.num_chars != length:
-            cluster_glyph_items.append(copied_glyph_item.split(text, length))
-        has_next_cluster = glyph_item_iter.next_cluster()
+        index_length = abs(glyph_item_iter.end_index - glyph_item_iter.start_index)
+        # print(copied_glyph_item.item.num_chars)
+        if copied_glyph_item.item.num_chars != 1:
+            first_cluster_of_glyph_item = split_until_next_value_glyph_item(copied_glyph_item, text)
+            cluster_glyph_items.append(first_cluster_of_glyph_item)
+            print(text.encode()[first_cluster_of_glyph_item.item.offset:
+                                first_cluster_of_glyph_item.item.offset + first_cluster_of_glyph_item.item.length].decode(
+                'utf-8'))
+            if first_cluster_of_glyph_item.item.length == copied_glyph_item.item.length:
+                break
+            # print("expglyphLen:", length, "Offset:", first_cluster_of_glyph_item.item.offset, "glyLen:", first_cluster_of_glyph_item.item.length)
+        else:
+            break
+        # has_next_cluster = glyph_item_iter.next_cluster()
+    print(text.encode()[copied_glyph_item.item.offset:
+                        copied_glyph_item.item.offset + copied_glyph_item.item.length].decode(
+        'utf-8'))
     cluster_glyph_items.append(copied_glyph_item)
     return cluster_glyph_items
 
@@ -142,8 +176,13 @@ def test_pdf():
     layout.set_width(pangocffi.units_from_double(width / 2))
     layout.set_alignment(pangocffi.Alignment.CENTER)
     layout.set_markup(
-        '<span font="italic 30">test'
-        '</span>'
+        '<span font="italic 30">Hi from Παν語</span>\n'
+        '<span font="sans-serif">The text layout engine library for '
+        'displaying <span font-weight="bold">multi-language</span> text!\n'
+        'Hebrew: שלום\n'
+        'Hindi नमस्ते, नमस्कार।\n'
+        'Russian: Здравствуйте!\n'
+        'Japanese: こんにちは, ｺﾝﾆﾁﾊ</span>'
     )
 
     y_diff = 200
