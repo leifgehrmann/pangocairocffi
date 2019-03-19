@@ -7,4 +7,5 @@ Documentation
 
     overview
     modules
+    tests
     changelog

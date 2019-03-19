@@ -1,8 +1,7 @@
 import cairocffi
 import pangocffi
 from . import pangocairo
-# Todo: Add back when all todos below are implemented
-# from . import ffi
+from . import ffi
 from . import _get_cairo_t_from_cairo_ctx
 
 
@@ -32,36 +31,38 @@ from . import _get_cairo_t_from_cairo_ctx
 #     )
 
 
-# Todo: GlyphItem needs to be implemented
-# def show_glyph_item(
-#         cairo_context: cairocffi.Context,
-#         text: str,
-#         glyph_item: pangocffi.GlyphItem
-# ) -> None:
-#     """
-#     Draws the glyphs in glyph_item in the specified cairo context, embedding
-#     the text associated with the glyphs in the output if the output format
-#     supports it (PDF for example), otherwise it acts similar to
-#     pango_cairo_show_glyph_string().
-#
-#     The origin of the glyphs (the left edge of the baseline) will be drawn at
-#     the current point of the cairo context.
-#
-#     Note that text is the start of the text for layout, which is then indexed
-#     by glyph_item->item->offset .
-#
-#     :param cairo_context:
-#     :param text:
-#     :param glyph_item:
-#     :return:
-#     """
-#     cairo_context_pointer = _get_cairo_t_from_cairo_ctx(cairo_context)
-#     text_pointer = ffi.new('char[]', text.encode('utf8'))
-#     pangocairo.pango_cairo_show_glyph_item(
-#         cairo_context_pointer,
-#         text_pointer,
-#         glyph_item.get_pointer()
-#     )
+def show_glyph_item(
+        cairo_context: cairocffi.Context,
+        text: str,
+        glyph_item: pangocffi.GlyphItem
+) -> None:
+    """
+    Draws the glyphs in ``glyph_item`` in the specified cairo context,
+    embedding the text associated with the glyphs in the output if the output
+    format supports it (PDF for example), otherwise it acts similar to
+    :meth:`show_glyph_string()`.
+
+    The origin of the glyphs (the left edge of the baseline) will be drawn at
+    the current point of the cairo context.
+
+    Note that ``text`` is the start of the text for layout, which is then
+    indexed by ``glyph_item->item->offset``.
+
+    :param cairo_context:
+        a Cairo context
+    :param text:
+        the UTF-8 text that :param:`glyph_item` refers to
+    :param glyph_item:
+        a Pango glyph item
+    :return:
+    """
+    cairo_context_pointer = _get_cairo_t_from_cairo_ctx(cairo_context)
+    text_pointer = ffi.new('char[]', text.encode('utf8'))
+    pangocairo.pango_cairo_show_glyph_item(
+        cairo_context_pointer,
+        text_pointer,
+        glyph_item.get_pointer()
+    )
 
 
 # Todo: LayoutLine needs to be implemented
