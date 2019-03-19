@@ -1,4 +1,3 @@
-import ctypes
 from typing import Optional
 from pangocffi import Context
 from . import pangocairo

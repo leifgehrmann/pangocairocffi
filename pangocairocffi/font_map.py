@@ -1,4 +1,3 @@
-import ctypes
 from . import pangocairo, ffi
 from pangocffi import Context
 from pangocffi import pango
