@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 import cairocffi
 import pangocffi
@@ -46,20 +46,30 @@ def render_run_glyph_items(
             break
 
 
-def split_until_next_value_glyph_item(
+def split_glyph_item_at_first_cluster(
         glyph_item: pangocffi.GlyphItem,
         text: str
-) -> pangocffi.GlyphItem:
-    for i in range(1, 20):
-        print("Huh? %d" % glyph_item.item.length)
+) -> Optional[pangocffi.GlyphItem]:
+    """
+
+    :param glyph_item:
+        the glyph item to split
+    :param text:
+        the full layout's text
+    :return:
+        the first cluster of the :param:`glyph_item`. The input parameter will
+        also be split from the end of the first cluster.
+    """
+    i = 1
+    while True:
         if i >= glyph_item.item.length:
-            print("????????? %d" % glyph_item.item.length)
             break
         try:
             return glyph_item.split(text, i)
         except ValueError:
+            i += 1
             pass
-    return glyph_item
+    return None
 
 
 def get_clusters_from_glyph_item(
@@ -70,8 +80,6 @@ def get_clusters_from_glyph_item(
     Splits a glyph item (which is composed of multiple clusters) into
     an array of individual glyph items for each cluster.
 
-    Danger: Arabic text causes Pango to throw assertion errors which will cause
-    a SIGABRT, shutting down Python.
     Warning: Does not support bidirectional text.
 
     :param glyph_item:
@@ -81,34 +89,17 @@ def get_clusters_from_glyph_item(
     :return:
         an array og individual glyph items
     """
-    print("-----------")
     cluster_glyph_items = []
-    glyph_item_iter = pangocffi.GlyphItemIter()
-    #has_next_cluster = glyph_item_iter.init_start(glyph_item, text)
-    copied_glyph_item = glyph_item.copy()
-    print(text.encode()[glyph_item.item.offset:
-                        glyph_item.item.offset + glyph_item.item.length].decode(
-        'utf-8'))
+    glyph_item_copy = glyph_item.copy()
     while True:
-        length = abs(glyph_item_iter.end_char - glyph_item_iter.start_char)
-        index_length = abs(glyph_item_iter.end_index - glyph_item_iter.start_index)
-        # print(copied_glyph_item.item.num_chars)
-        if copied_glyph_item.item.num_chars != 1:
-            first_cluster_of_glyph_item = split_until_next_value_glyph_item(copied_glyph_item, text)
-            cluster_glyph_items.append(first_cluster_of_glyph_item)
-            print(text.encode()[first_cluster_of_glyph_item.item.offset:
-                                first_cluster_of_glyph_item.item.offset + first_cluster_of_glyph_item.item.length].decode(
-                'utf-8'))
-            if first_cluster_of_glyph_item.item.length == copied_glyph_item.item.length:
-                break
-            # print("expglyphLen:", length, "Offset:", first_cluster_of_glyph_item.item.offset, "glyLen:", first_cluster_of_glyph_item.item.length)
-        else:
+        first_cluster = split_glyph_item_at_first_cluster(
+            glyph_item_copy,
+            text
+        )
+        if first_cluster is None:
             break
-        # has_next_cluster = glyph_item_iter.next_cluster()
-    print(text.encode()[copied_glyph_item.item.offset:
-                        copied_glyph_item.item.offset + copied_glyph_item.item.length].decode(
-        'utf-8'))
-    cluster_glyph_items.append(copied_glyph_item)
+        cluster_glyph_items.append(first_cluster)
+    cluster_glyph_items.append(glyph_item_copy)
     return cluster_glyph_items
 
 
@@ -179,6 +170,7 @@ def test_pdf():
         '<span font="italic 30">Hi from Παν語</span>\n'
         '<span font="sans-serif">The text layout engine library for '
         'displaying <span font-weight="bold">multi-language</span> text!\n'
+        'Arabic: السَّلام عليكُم\n'
         'Hebrew: שלום\n'
         'Hindi नमस्ते, नमस्कार।\n'
         'Russian: Здравствуйте!\n'
