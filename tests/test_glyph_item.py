@@ -142,11 +142,7 @@ def test_pdf():
     layout.set_width(pangocffi.units_from_double(width / 2))
     layout.set_alignment(pangocffi.Alignment.CENTER)
     layout.set_markup(
-        '<span font="italic 30">Hi from Παν語</span>\n'
-        '<span font="sans-serif">The text layout engine library for '
-        'displaying <span font-weight="bold">multi-language</span> text!\n'
-        # 'Russian: Здравствуйте!\n'
-        #'Japanese: こんにちは, ｺﾝﾆﾁﾊ'
+        '<span font="italic 30">test'
         '</span>'
     )
 
