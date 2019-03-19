@@ -145,7 +145,7 @@ def test_pdf():
         '<span font="italic 30">Hi from Παν語</span>\n'
         '<span font="sans-serif">The text layout engine library for '
         'displaying <span font-weight="bold">multi-language</span> text!\n'
-        'Russian: Здравствуйте!\n'
+        # 'Russian: Здравствуйте!\n'
         #'Japanese: こんにちは, ｺﾝﾆﾁﾊ'
         '</span>'
     )
