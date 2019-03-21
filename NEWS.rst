@@ -1,6 +1,13 @@
 Changelog
 ---------
 
+Version 0.2.1
+.............
+
+Released on 2019-03-21.
+
+- Improved linting coverage by refactoring the cffi build script.
+
 Version 0.2.0
 .............
 
