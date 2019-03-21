@@ -54,8 +54,7 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr .pytest_cache
 
 lint: ## check style with flake8
-	flake8 pangocairocffi tests --exclude pangocairocffi/_generated/ffi.py,pangocairocffi/ffi_build.py
-	flake8 --ignore=W293 pangocairocffi/ffi_build.py
+	flake8 pangocairocffi tests --exclude pangocairocffi/_generated/ffi.py
 
 tests: ## run tests quickly with the default Python
 	python setup.py test
