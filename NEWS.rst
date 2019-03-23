@@ -1,22 +1,36 @@
 Changelog
 ---------
 
-Version 0.2.3
-.............
+Version 0.2.2 - 0.2.4
+.....................
 
 Released on 2019-03-23.
 
-- Possible fix for installation issues related to ``ffi_pango.py`` not being
-  installed in the correct directory, and also the ``pangocffi`` dependency not
-  being installed in the setup process.
+These were a series of changes that happened rapidly since the issues were not
+easy to replicate manually.
+
+- Version 0.2.2
+
+  - Upgraded dependency of ``pangocffi`` from 0.3.0 to 0.4.0.
+  - Possible fix for SandboxViolation when installing via easy_install/
+    setuptools
+
+- Version 0.2.3
+
+  - Possible fix for installation issues related to ``ffi_pango.py`` not being
+    installed in the correct directory, and also the ``pangocffi`` dependency
+    not being installed in the setup process.
+
+- Version 0.2.4
+
+  - ``ffi_pango.py`` still was not being installed correctly. So now rather
+    than relying on the file being generated, the file exists hardcoded in the
+    repository.
 
 Version 0.2.2
 .............
 
 Released on 2019-03-23.
-
-- Upgraded dependency of ``pangocffi`` from 0.3.0 to 0.4.0.
-- Possible fix for SandboxViolation when installing via easy_install/setuptools
 
 Version 0.2.1
 .............
