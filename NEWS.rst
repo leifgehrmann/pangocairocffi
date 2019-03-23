@@ -1,7 +1,7 @@
 Changelog
 ---------
 
-Version 0.2.2 - 0.2.4
+Version 0.2.2 - 0.2.5
 .....................
 
 Released on 2019-03-23.
@@ -26,6 +26,12 @@ easy to replicate manually.
   - ``ffi_pango.py`` still was not being installed correctly. So now rather
     than relying on the file being generated, the file exists hardcoded in the
     repository.
+
+- Version 0.2.5
+
+  - setuptools apparently does not follow the ``package_data`` rule.
+    A ``MANIFEST.in`` file has been added to fix this.
+    (see https://stackoverflow.com/a/14159430)
 
 Version 0.2.2
 .............

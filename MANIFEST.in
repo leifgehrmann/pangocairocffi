@@ -1,0 +1,3 @@
+recursive-include pangocairocffi VERSION
+recursive-include pangocairocffi c_definitions_*.txt
+recursive-include pangocairocffi ffi_pango.py
