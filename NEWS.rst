@@ -1,6 +1,15 @@
 Changelog
 ---------
 
+Version 0.2.3
+.............
+
+Released on 2019-03-23.
+
+- Possible fix for installation issues related to ``ffi_pango.py`` not being
+  installed in the correct directory, and also the ``pangocffi`` dependency not
+  being installed in the setup process.
+
 Version 0.2.2
 .............
 
