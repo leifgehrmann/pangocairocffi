@@ -1,6 +1,14 @@
 Changelog
 ---------
 
+Version 0.2.2
+.............
+
+Released on 2019-03-23.
+
+- Upgraded dependency of ``pangocffi`` from 0.3.0 to 0.4.0.
+- Possible fix for SandboxViolation when installing via easy_install/setuptools
+
 Version 0.2.1
 .............
 
