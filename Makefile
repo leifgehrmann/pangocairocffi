@@ -32,7 +32,7 @@ help:
 clean: clean-generated-ffi clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
 
 clean-generated-ffi: ## remove FFI generated artifacts
-	rm -fr pangocairocffi/_generated/
+	rm -fr pangocairocffi/_generated/ffi.py
 
 clean-build: ## remove build artifacts
 	rm -fr build/

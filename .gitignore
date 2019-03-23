@@ -6,7 +6,7 @@
 __pycache__
 
 # Build artifacts specific to pangocairocffi
-_generated
+pangocairocffi/_generated/ffi.py
 
 # Test artifacts
 tests/output/*
