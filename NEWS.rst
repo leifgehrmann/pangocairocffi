@@ -1,7 +1,7 @@
 Changelog
 ---------
 
-Version 0.2.2 - 0.2.5
+Version 0.2.2 - 0.2.6
 .....................
 
 Released on 2019-03-23.
@@ -32,6 +32,10 @@ easy to replicate manually.
   - setuptools apparently does not follow the ``package_data`` rule.
     A ``MANIFEST.in`` file has been added to fix this.
     (see https://stackoverflow.com/a/14159430)
+
+- Version 0.2.6
+
+  - ``include_package_data`` and ``zip_safe`` need to be set.
 
 Version 0.2.2
 .............
