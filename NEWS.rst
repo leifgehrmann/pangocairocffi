@@ -1,6 +1,13 @@
 Changelog
 ---------
 
+Version 0.3.0
+.............
+
+Released on 2019-10-08.
+
+* Extended library names to include current Win64 library names.
+
 Version 0.2.2 - 0.2.6
 .....................
 
