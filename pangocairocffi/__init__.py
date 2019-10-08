@@ -26,7 +26,7 @@ def _dlopen(generated_ffi, *names):
     raise OSError("dlopen() failed to load a library: %s" % ' / '.join(names))
 
 
-pangocairo = _dlopen(ffi, 'pangocairo-1.0')
+pangocairo = _dlopen(ffi, 'pangocairo-1.0', 'pangocairo-1.0-0')
 
 
 # Imports are normally always put at the top of the file.
