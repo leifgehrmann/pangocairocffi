@@ -34,9 +34,9 @@ Basic usage and example
 Below is a rough example of how to use pangocairocffi together with
 pangocffi and cairocffi::
 
-   import pangocairocffi
-   from pangocffi import Alignment
    import cairocffi
+   import pangocffi
+   import pangocairocffi
 
    # Create the surface and get the context
    filename = 'test.pdf'
@@ -49,12 +49,12 @@ pangocffi and cairocffi::
 
    # Build the layout
    layout = pangocairocffi.create_layout(context)
-   layout.set_width(pango.units_from_(width))
-   layout.set_alignment(Alignment.CENTER)
+   layout.set_width(pangocffi.units_from_double(width))
+   layout.set_alignment(pangocffi.Alignment.CENTER)
    layout.set_markup('<span font="italic 30">Hi from Παν語</span>')
 
    # Render the layout
-   pangocairocffi.show_layout(layout)
+   pangocairocffi.show_layout(context, layout)
 
    # Output the surface
    surface.finish()
