@@ -1,6 +1,13 @@
 Changelog
 ---------
 
+Version 0.3.2
+.............
+
+Released on 2020-10-06.
+
+* Reverted previous unsuccessful patch.
+
 Version 0.3.1
 .............
 
