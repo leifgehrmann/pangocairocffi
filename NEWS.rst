@@ -1,6 +1,14 @@
 Changelog
 ---------
 
+Version 0.3.1
+.............
+
+Released on 2020-10-06.
+
+* Hopefully fixed issue with ``pangocairocffi`` not being cache-able as a wheel
+  by pip.
+
 Version 0.3.0
 .............
 
