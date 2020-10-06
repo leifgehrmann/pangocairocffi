@@ -8,29 +8,8 @@
 import sys
 from pathlib import Path
 from cffi import FFI
-
-
-def create_ffi_pango(source: str) -> FFI:
-    # Read the C definitions
-    c_definitions_glib_file = open(
-        str(Path(__file__).parent / 'c_definitions_glib.txt'),
-        'r'
-    )
-    c_definitions_pango_file = open(
-        str(Path(__file__).parent / 'c_definitions_pango.txt'),
-        'r'
-    )
-    c_definitions_glib = c_definitions_glib_file.read()
-    c_definitions_pango = c_definitions_pango_file.read()
-
-    ffi_pango = FFI()
-    ffi_pango.cdef(c_definitions_glib)
-    ffi_pango.cdef(c_definitions_pango)
-    if source is not None:
-        ffi_pango.set_source(source, None)
-
-    return ffi_pango
-
+from pangocffi.ffi_instance_builder import \
+    FFIInstanceBuilder as PangoFFIBuilder
 
 sys.path.append(str(Path(__file__).parent))
 
@@ -51,10 +30,11 @@ c_definitions_pangocairo = c_definitions_pangocairo_file.read()
 
 # cffi definitions, in the order outlined in:
 ffi = FFI()
-ffi_pango_include = create_ffi_pango(
+ffi_pango_builder = PangoFFIBuilder(
     source='pangocairocffi._generated.ffi_pango'
 )
-ffi.include(ffi_pango_include)
+ffi_pango = ffi_pango_builder.generate()
+ffi.include(ffi_pango)
 ffi.set_source('pangocairocffi._generated.ffi', None)
 ffi.cdef(c_definitions_cairo)
 ffi.cdef(c_definitions_pangocairo)
