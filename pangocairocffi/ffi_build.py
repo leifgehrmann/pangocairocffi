@@ -31,7 +31,7 @@ c_definitions_pangocairo = c_definitions_pangocairo_file.read()
 # cffi definitions, in the order outlined in:
 ffi = FFI()
 ffi_pango_builder = PangoFFIBuilder(
-    source='pangocairocffi._generated.ffi_pango'
+    source='pangocairocffi.ffi_pango'
 )
 ffi_pango = ffi_pango_builder.generate()
 ffi.include(ffi_pango)
