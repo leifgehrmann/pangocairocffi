@@ -9,7 +9,7 @@ pangocairocffi
     :target: https://pypi.python.org/pypi/pangocairocffi
     :alt: Supported Python Versions
 
-.. image:: https://travis-ci.org/leifgehrmann/pangocairocffi.svg?branch=master
+.. image:: https://github.com/leifgehrmann/pangocairocffi/workflows/Build/badge.svg?branch=master
     :target: https://travis-ci.org/leifgehrmann/pangocairocffi
 
 .. image:: https://readthedocs.org/projects/pangocairocffi/badge/?version=latest
