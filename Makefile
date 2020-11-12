@@ -56,14 +56,14 @@ clean-test: ## remove test and coverage artifacts
 lint: ## check style with flake8
 	flake8 pangocairocffi tests --exclude pangocairocffi/_generated/ffi.py
 
-tests: clean ## run tests quickly with the default Python
-	python setup.py test
+test: clean ## run tests quickly with the default Python
+	pytest
 
-tests-all: clean ## run tests on all minor python versions
+test-all: clean ## run tests on all minor python versions
 	tox
 
 coverage: ## check code coverage quickly with the default Python
-	coverage run --source pangocairocffi setup.py test
+	coverage run --source pangocffi -m pytest
 	coverage report -m
 	coverage html
 	$(BROWSER) htmlcov/index.html
