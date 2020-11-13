@@ -8,8 +8,7 @@
 import sys
 from pathlib import Path
 from cffi import FFI
-from pangocffi.ffi_instance_builder import \
-    FFIInstanceBuilder as PangoFFIBuilder
+from pangocffi import ffi as ffi_pango
 
 sys.path.append(str(Path(__file__).parent))
 
@@ -30,10 +29,6 @@ c_definitions_pangocairo = c_definitions_pangocairo_file.read()
 
 # cffi definitions, in the order outlined in:
 ffi = FFI()
-ffi_pango_builder = PangoFFIBuilder(
-    source='pangocairocffi._generated.ffi_pango'
-)
-ffi_pango = ffi_pango_builder.generate()
 ffi.include(ffi_pango)
 ffi.set_source('pangocairocffi._generated.ffi', None)
 ffi.cdef(c_definitions_cairo)

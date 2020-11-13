@@ -8,7 +8,7 @@
 """
 
 import ctypes.util
-from ._generated.ffi import ffi
+from .ffi_build import ffi
 import cairocffi
 
 

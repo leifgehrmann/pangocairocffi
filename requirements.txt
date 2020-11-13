@@ -1,6 +1,6 @@
 cffi >= 1.1.0
 cairocffi >= 1.0.2
-pangocffi >= 0.4.0
+pangocffi >= 0.8.0
 flake8
 coverage
 pytest
