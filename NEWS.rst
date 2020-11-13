@@ -1,6 +1,24 @@
 Changelog
 ---------
 
+Version 0.4.0
+.............
+
+Released on 2020-11-13.
+
+**Breaking Changes**
+
+* C-FFI bindings are now generated at runtime, rather than at installation.
+  This was done to avoid common installation issues like
+  ``ModuleNotFoundError: No module named 'pangocairocffi._generated'``. This
+  change does mean the bindings are re-compiled the first time
+  ``import pangocairocffi`` is called in a python session, but it takes less
+  than a second to do this. If there are any issues with this change, please
+  raise an issue in the issue tracker.
+* pangocairocffi now depends on pangocffi v0.8.0. Older versions are not
+  compatible.
+* Support for Python 3.5 has been dropped because it has reached end-of-life.
+
 Version 0.3.2
 .............
 
