@@ -28,6 +28,27 @@ Install with pip_::
 
 Note: Python versions < 3.6 are not supported.
 
+Importing pangocairocffi
+------------------------
+
+The module to import is named ``pangocairocffi``, however you are welcome to alias
+the module as ``pangocairo``::
+
+    import pangocairocffi as pangocairo
+
+pangocairocffi will dynamically load PangoCairo as a shared library upon importing. If it fails to find it, you will
+see an exception like this::
+
+    OSError: dlopen() failed to load pangocairo: pangocairo-1.0 / pangocairo-1.0.0
+
+If PangoCairo is not installed as a shared library, pangocairocffi
+supports specifying a path via an environment variable: ``PANGOCAIRO_LOCATION``.
+Note that the loading of dynamic libraries also applies to pangocffi, so be
+sure to check `Importing pangocffi`_ as well for information on how to specify
+paths to Pango, GLib, and GObject.
+
+.. _Importing pangocffi: https://pangocffi.readthedocs.io/en/latest/overview.html#importing-pangocffi
+
 Basic usage and example
 -----------------------
 
