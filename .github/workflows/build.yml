@@ -34,11 +34,9 @@ jobs:
       - name: Install System Dependencies (Windows)
         if: runner.os == 'windows'
         run: |
-          curl -L https://github.com/preshing/cairo-windows/releases/download/with-tee/cairo-windows-1.17.2.zip -o cairocomplied.zip
-          7z x cairocomplied.zip -oD:\Cache
-          curl -L https://github.com/naveen521kk/pango-build/releases/download/v1.48.0/pango-build-win64.zip -o pango.zip
-          7z x pango.zip -oD:\Cache
-          $env:PATH += ";" + "D:\Cache\bin"
-          echo "$env:Path" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          C:\msys64\usr\bin\bash -lc 'pacman -S mingw-w64-x86_64-ttf-dejavu mingw-w64-x86_64-gtk3 --noconfirm'
+          xcopy "C:\msys64\mingw64\share\fonts\TTF" "C:\Users\runneradmin\.fonts" /e /i
+          echo "C:\msys64\mingw64\bin" | Out-File -FilePath $env:GITHUB_PATH
+          rm C:\msys64\mingw64\bin\python.exe
       - name: Test with tox
         run: tox
