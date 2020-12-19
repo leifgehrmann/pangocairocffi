@@ -1,6 +1,14 @@
 Changelog
 ---------
 
+Version 0.5.0
+.............
+
+Released on 2020-12-19.
+
+* Added the ability to configure loading a specific library via the environment
+  variable ``PANGOCAIRO_LOCATION``.
+
 Version 0.4.0
 .............
 
