@@ -137,4 +137,4 @@ class PangoCairoFontMap:
         context_pointer = pango.pango_font_map_create_context(
             self.get_pointer()
         )
-        return Context.from_pointer(context_pointer)
+        return Context.from_pointer(context_pointer, gc=True)

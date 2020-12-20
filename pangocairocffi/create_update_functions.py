@@ -22,7 +22,7 @@ def create_context(cairo_context: cairocffi.Context) -> pangocffi.Context:
     """
     cairo_t_pointer = _get_cairo_t_from_cairo_ctx(cairo_context)
     layout_pointer = pangocairo.pango_cairo_create_context(cairo_t_pointer)
-    return pangocffi.Context.from_pointer(layout_pointer)
+    return pangocffi.Context.from_pointer(layout_pointer, gc=True)
 
 
 def update_context(
@@ -68,7 +68,7 @@ def create_layout(cairo_context: cairocffi.Context) -> pangocffi.Layout:
     """
     cairo_t_pointer = _get_cairo_t_from_cairo_ctx(cairo_context)
     layout_pointer = pangocairo.pango_cairo_create_layout(cairo_t_pointer)
-    return pangocffi.Layout.from_pointer(layout_pointer)
+    return pangocffi.Layout.from_pointer(layout_pointer, gc=True)
 
 
 def update_layout(
