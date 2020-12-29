@@ -51,10 +51,9 @@ def show_glyph_item(
     :param cairo_context:
         a Cairo context
     :param text:
-        the UTF-8 text that :param:`glyph_item` refers to
+        the UTF-8 text that ``glyph_item`` refers to
     :param glyph_item:
         a Pango glyph item
-    :return:
     """
     cairo_context_pointer = _get_cairo_t_from_cairo_ctx(cairo_context)
     text_pointer = ffi.new('char[]', text.encode('utf8'))
