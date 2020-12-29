@@ -1,33 +1,32 @@
+from typing import Optional
+
 from . import pangocairo, ffi
 from pangocffi import Context
 from pangocffi import pango
 
 
-# Todo: Implement FontMap in pango
-# def get_default_font_map() -> pangocffi.FontMap:
-#     return FontMap.from_pointer(
-#         pangocairo.pango_cairo_font_map_get_default()
-#     )
-# def set_default_font_map(font_map: pangocffi.FontMap) -> None:
-#     return pangocairo.pango_cairo_font_map_set_default(
-#         font_map.get_pointer()
-#     )
-
-
-# Todo: extend FontMap from pangocffi
 class PangoCairoFontMap:
     """
-    PangoCairoFontMap is an interface exported by font maps for use with Cairo.
-    The actual type of the font map will depend on the particular font
+    API not *fully* implemented yet.
+
+    **Todo:** This class should extend FontMap from pangocffi once it is
+    implemented. This class in theory should be able to inherit the functions
+    listed here:
+    https://developer.gnome.org/pango/stable/pango-Fonts.html, with the prefix
+    ``pango_font_map_X``. For example: ``create_context``, ``load_font``,
+    ``load_fontset``, ``list_families``.
+
+    ``PangoCairoFontMap`` is an interface exported by font maps for use with
+    Cairo. The actual type of the font map will depend on the particular font
     technology Cairo was compiled to use.
     """
 
     def __init__(self):
         """
-        Creates a new PangoCairoFontMap object; a ``fontmap`` is used to cache
-        information about available fonts, and holds certain global parameters
-        such as the resolution. In most cases, you can use
-        ``PangoCairoFontMap.get_default()`` instead.
+        ``__init__`` Creates a new PangoCairoFontMap object; a ``fontmap`` is
+        used to cache information about available fonts, and holds certain
+        global parameters such as the resolution. In most cases, you can use
+        :py:meth:`PangoCairoFontMap.get_default()` instead.
 
         Note that the type of the returned object will depend on the particular
         font backend Cairo was compiled to use; You generally should only use
@@ -43,6 +42,7 @@ class PangoCairoFontMap:
         self._init_pointer(pangocairo.pango_cairo_font_map_new())
 
     def _init_pointer(self, pointer: ffi.CData):
+        pointer = ffi.cast('PangoCairoFontMap *', pointer)
         self._pointer = pointer
 
     def get_pointer(self) -> ffi.CData:
@@ -67,6 +67,63 @@ class PangoCairoFontMap:
         self = object.__new__(cls)
         cls._init_pointer(self, pointer)
         return self
+
+    @classmethod
+    def get_default(
+            cls,
+    ) -> 'PangoCairoFontMap':
+        """
+        Gets a default ``PangoCairoFontMap`` to use with Cairo.
+
+        Note that the type of the returned object will depend on the particular
+        font backend Cairo was compiled to use; You generally should only use
+        the PangoFontMap and PangoCairoFontMap interfaces on the returned
+        object.
+
+        The default Cairo fontmap can be changed by using
+        :py:meth:`PangoCairoFontMap.set_default()`. This can be used to change
+        the Cairo font backend that the default fontmap uses for example.
+
+        Note that since Pango 1.32.6, the default fontmap is per-thread. Each
+        thread gets its own default fontmap. In this way, PangoCairo can be
+        used safely from multiple threads.
+
+        :return:
+            the default PangoCairo fontmap for the current thread. This object
+            is owned by Pango and must not be freed.
+        """
+        font_map_pointer = pangocairo.pango_cairo_font_map_get_default()
+        return cls.from_pointer(font_map_pointer)
+
+    @classmethod
+    def set_default(
+            cls,
+            fontmap: Optional['PangoCairoFontMap'] = None
+    ) -> None:
+        """
+        Sets a default PangoCairoFontMap to use with Cairo.
+
+        This can be used to change the Cairo font backend that the default
+        fontmap uses for example. The old default font map is unreffed and the
+        new font map referenced.
+
+        Note that since Pango 1.32.6, the default fontmap is per-thread. This
+        function only changes the default fontmap for the current thread.
+        Default fontmaps of existing threads are not changed. Default fontmaps
+        of any new threads will still be created using
+        pango_cairo_font_map_new().
+
+        A value of ``None`` for fontmap will cause the current default font
+        map to be released and a new default font map to be created on demand,
+        using ``pango_cairo_font_map_new()``.
+
+        :return:
+            the pango-cairo font map.
+        """
+        fontmap_pointer = ffi.NULL
+        if fontmap is not None:
+            fontmap_pointer = fontmap.get_pointer()
+        pangocairo.pango_cairo_font_map_set_default(fontmap_pointer)
 
     @classmethod
     def from_cairo_font_type(
