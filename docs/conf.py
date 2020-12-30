@@ -16,6 +16,7 @@ release = release.read_text().strip()
 version = '.'.join(release.split('.')[:2])
 exclude_patterns = ['_build']
 autodoc_member_order = 'bysource'
+autoclass_content = 'both'
 autodoc_default_options = {
     'members': None  # Set to True when readthedocs.org updates sphinx to v2.0
 }

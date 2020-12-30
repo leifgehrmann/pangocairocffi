@@ -28,13 +28,13 @@ ____________________________
 
 .. .. autofunction:: pangocairocffi.show_glyph_string
 
-.. .. autofunction:: pangocairocffi.show_glyph_item
-
 .. .. autofunction:: pangocairocffi.show_layout_line
 
 .. autofunction:: pangocairocffi.show_layout
 
 .. autofunction:: pangocairocffi.show_error_underline
+
+.. autofunction:: pangocairocffi.show_glyph_item
 
 Adding text to cairo's current path
 ___________________________________
@@ -50,7 +50,7 @@ ___________________________________
 PangoCairo Fonts
 ================
 
-PangoCairo Fonts Functions
+PangoCairo Font Functions
 __________________________
 
 .. .. autofunction:: pangocairocffi.get_cairo_scaled_font_pointer
@@ -63,7 +63,7 @@ __________________________
 
 .. autofunction:: pangocairocffi.get_font_options
 
-PangoCairo Fonts Map
+PangoCairo Font Map
 ____________________
 
 .. autoclass:: pangocairocffi.PangoCairoFontMap

@@ -63,7 +63,7 @@ test-all: clean ## run tests on all minor python versions
 	tox
 
 coverage: ## check code coverage quickly with the default Python
-	coverage run --source pangocffi -m pytest
+	coverage run --source pangocairocffi -m pytest
 	coverage report -m
 	coverage html
 	$(BROWSER) htmlcov/index.html
