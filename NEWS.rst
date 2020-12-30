@@ -1,6 +1,16 @@
 Changelog
 ---------
 
+Version 0.6.0
+.............
+
+Released on 2020-12-30.
+
+* Added two new static methods to ``PangoCairoFontMap``:
+
+    * ``set_default``
+    * ``get_default``
+
 Version 0.5.0
 .............
 
