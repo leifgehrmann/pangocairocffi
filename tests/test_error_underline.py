@@ -22,9 +22,9 @@ def test_pdf():
     ctx = cairocffi.Context(surface)
 
     layout = pangocairocffi.create_layout(ctx)
-    layout.set_width(pangocffi.units_from_double(width))
-    layout.set_alignment(pangocffi.Alignment.CENTER)
-    layout.set_markup('Hi from Παν語')
+    layout.width = pangocffi.units_from_double(width)
+    layout.alignment = pangocffi.Alignment.CENTER
+    layout.apply_markup('Hi from Παν語')
 
     layout_logical_extent = layout.get_extents()[1]
     layout_baseline = pangocffi.units_to_double(layout.get_baseline())

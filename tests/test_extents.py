@@ -343,9 +343,9 @@ def _show_label(
 ):
     context.translate(position[0], position[1])
     label = pangocairocffi.create_layout(context)
-    label.set_width(pangocffi.units_from_double(width))
-    label.set_alignment(pangocffi.Alignment.LEFT)
-    label.set_markup('<span font-family="sans-serif">%s</span>' % text)
+    label.width = pangocffi.units_from_double(width)
+    label.alignment = pangocffi.Alignment.LEFT
+    label.apply_markup('<span font-family="sans-serif">%s</span>' % text)
     pangocairocffi.show_layout(context, label)
     context.translate(-position[0], -position[1])
 
@@ -359,9 +359,9 @@ def test_pdf():
     ctx.translate(width / 2, 10)
 
     layout = pangocairocffi.create_layout(ctx)
-    layout.set_width(pangocffi.units_from_double(width / 2))
-    layout.set_alignment(pangocffi.Alignment.CENTER)
-    layout.set_markup('<span font="italic 30">Hi from Παν語</span>\n'
+    layout.width = pangocffi.units_from_double(width / 2)
+    layout.alignment = pangocffi.Alignment.CENTER
+    layout.apply_markup('<span font="italic 30">Hi from Παν語</span>\n'
                       'The text layout engine library for displaying '
                       '<span font-weight="bold">multi-language</span> text!')
 

@@ -45,7 +45,8 @@ class PangoCairoFontMap:
         pointer = ffi.cast('PangoCairoFontMap *', pointer)
         self._pointer = pointer
 
-    def get_pointer(self) -> ffi.CData:
+    @property
+    def pointer(self) -> ffi.CData:
         """
         Returns the pointer to the font map
 
@@ -122,7 +123,7 @@ class PangoCairoFontMap:
         """
         fontmap_pointer = ffi.NULL
         if fontmap is not None:
-            fontmap_pointer = fontmap.get_pointer()
+            fontmap_pointer = fontmap.pointer
         pangocairo.pango_cairo_font_map_set_default(fontmap_pointer)
 
     @classmethod
@@ -143,7 +144,7 @@ class PangoCairoFontMap:
 
     def __eq__(self, other):
         if isinstance(other, PangoCairoFontMap):
-            return self.get_pointer() == other.get_pointer()
+            return self.pointer == other.pointer
         return NotImplemented
 
     def get_cairo_font_type_pointer(self) -> ffi.CData:
@@ -155,32 +156,25 @@ class PangoCairoFontMap:
             the pointer to the ``cairo_font_type_t``.
         """
         return pangocairo.pango_cairo_font_map_get_font_type(
-            self.get_pointer()
+            self.pointer
         )
 
-    def set_resolution(self, dpi: float) -> None:
-        """
-        Sets the resolution for the ``fontmap``. This is a scale factor between
-        points specified in a Pango FontDescription and Cairo units. The
-        default value is 96, meaning that a 10 point font will be 13
-        units high. (10 * 96. / 72. = 13.3).
+    def _set_resolution(self, dpi: float) -> None:
+        pangocairo.pango_cairo_font_map_set_resolution(self.pointer, dpi)
 
-        :param dpi:
-             the resolution in "dots per inch". (Physical inches aren't
-             actually involved; the terminology is conventional.)
-        """
-        pangocairo.pango_cairo_font_map_set_resolution(self.get_pointer(), dpi)
-
-    def get_resolution(self) -> float:
-        """
-        Returns the resolution for the ``fontmap``.
-
-        :return:
-            the resolution in "dots per inch"
-        """
+    def _get_resolution(self) -> float:
         return pangocairo.pango_cairo_font_map_get_resolution(
-            self.get_pointer()
+            self.pointer
         )
+
+    resolution: float = property(_get_resolution, _set_resolution)
+    """
+    The resolution for the ``fontmap`` in "dots per inch". This is a scale
+    factor between points specified in a Pango FontDescription and Cairo units.
+    The default value is 96, meaning that a 10 point font will be 13 units
+    high. (10 * 96. / 72. = 13.3). (Physical inches aren't actually involved;
+    the terminology is conventional.)
+    """
 
     def create_context(self) -> Context:
         """
@@ -192,6 +186,6 @@ class PangoCairoFontMap:
             the newly allocated Pango ``Context``.
         """
         context_pointer = pango.pango_font_map_create_context(
-            self.get_pointer()
+            self.pointer
         )
         return Context.from_pointer(context_pointer, gc=True)
