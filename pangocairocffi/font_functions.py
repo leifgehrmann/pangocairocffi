@@ -32,7 +32,7 @@ def set_resolution(context: Context, dpi: float) -> None:
         involved; the terminology is conventional.) A 0 or negative value
         means to use the resolution from the font map.
     """
-    pangocairo.pango_cairo_context_set_resolution(context.get_pointer(), dpi)
+    pangocairo.pango_cairo_context_set_resolution(context.pointer, dpi)
 
 
 def get_resolution(context: Context) -> float:
@@ -45,7 +45,7 @@ def get_resolution(context: Context) -> float:
         the resolution in "dots per inch". A negative value will be returned
         if no resolution has previously been set.
     """
-    return pangocairo.pango_cairo_context_get_resolution(context.get_pointer())
+    return pangocairo.pango_cairo_context_get_resolution(context.pointer)
 
 
 def set_font_options(
@@ -65,7 +65,7 @@ def set_font_options(
     """
     if options is None:
         options = ffi.NULL
-    context_pointer = context.get_pointer()
+    context_pointer = context.pointer
     pangocairo.pango_cairo_context_set_font_options(context_pointer, options)
 
 
@@ -82,7 +82,7 @@ def get_font_options(context: Context) -> Optional[ffi.CData]:
             a cairo_font_options_t pointer previously set on the context,
             otherwise ``None``.
     """
-    context_pointer = context.get_pointer()
+    context_pointer = context.pointer
     font_option_pointer = pangocairo.pango_cairo_context_get_font_options(
         context_pointer
     )

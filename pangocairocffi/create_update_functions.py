@@ -43,7 +43,7 @@ def update_context(
     cairo_t_pointer = _get_cairo_t_from_cairo_ctx(cairo_context)
     pangocairo.pango_cairo_update_context(
         cairo_t_pointer,
-        pango_context.get_pointer()
+        pango_context.pointer
     )
 
 
@@ -86,4 +86,4 @@ def update_layout(
         a Pango layout
     """
     cairo_t_pointer = _get_cairo_t_from_cairo_ctx(cairo_context)
-    pangocairo.pango_cairo_update_layout(cairo_t_pointer, layout.get_pointer())
+    pangocairo.pango_cairo_update_layout(cairo_t_pointer, layout.pointer)

@@ -60,7 +60,7 @@ def show_glyph_item(
     pangocairo.pango_cairo_show_glyph_item(
         cairo_context_pointer,
         text_pointer,
-        glyph_item.get_pointer()
+        glyph_item.pointer
     )
 
 
@@ -102,7 +102,7 @@ def show_layout(
     cairo_context_pointer = _get_cairo_t_from_cairo_ctx(cairo_context)
     pangocairo.pango_cairo_show_layout(
         cairo_context_pointer,
-        layout.get_pointer()
+        layout.pointer
     )
 
 
@@ -206,7 +206,7 @@ def layout_path(
     cairo_context_pointer = _get_cairo_t_from_cairo_ctx(cairo_context)
     pangocairo.pango_cairo_layout_path(
         cairo_context_pointer,
-        layout.get_pointer()
+        layout.pointer
     )
 
 

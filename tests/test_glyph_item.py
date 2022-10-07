@@ -18,7 +18,7 @@ def render_run_glyph_items(
         a Pango layout
     """
     layout_iter = layout.get_iter()
-    layout_text = layout.get_text()
+    layout_text = layout.text
 
     alternate = False
     while True:
@@ -119,7 +119,7 @@ def render_cluster_glyph_items(
     """
     layout_run_iter = layout.get_iter()
     layout_cluster_iter = layout.get_iter()
-    layout_text = layout.get_text()
+    layout_text = layout.text
 
     alternate = False
     while True:
@@ -164,9 +164,9 @@ def test_pdf():
     ctx.translate(width / 4, 100)
 
     layout = pangocairocffi.create_layout(ctx)
-    layout.set_width(pangocffi.units_from_double(width / 2))
-    layout.set_alignment(pangocffi.Alignment.CENTER)
-    layout.set_markup(
+    layout.width = pangocffi.units_from_double(width / 2)
+    layout.alignment = pangocffi.Alignment.CENTER
+    layout.apply_markup(
         '<span font="italic 30">Hi from Παν語</span>\n'
         '<span font="sans-serif">The text layout engine library for '
         'displaying <span font-weight="bold">multi-language</span> text!\n'

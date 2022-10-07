@@ -13,9 +13,9 @@ def test_pdf():
     context.rotate(-0.1)
 
     layout = pangocairocffi.create_layout(context)
-    layout.set_width(pangocffi.units_from_double(width))
-    layout.set_alignment(pangocffi.Alignment.CENTER)
-    layout.set_markup('<span font="italic 30">Hi from Παν語</span>')
+    layout.width = pangocffi.units_from_double(width)
+    layout.alignment = pangocffi.Alignment.CENTER
+    layout.apply_markup('<span font="italic 30">Hi from Παν語</span>')
 
     pangocairocffi.show_layout(context, layout)
 
