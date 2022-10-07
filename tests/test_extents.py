@@ -362,8 +362,8 @@ def test_pdf():
     layout.width = pangocffi.units_from_double(width / 2)
     layout.alignment = pangocffi.Alignment.CENTER
     layout.apply_markup('<span font="italic 30">Hi from Παν語</span>\n'
-                      'The text layout engine library for displaying '
-                      '<span font-weight="bold">multi-language</span> text!')
+                        'The text layout engine library for displaying '
+                        '<span font-weight="bold">multi-language</span> text!')
 
     translate_y = 110
     label_pos = (-width / 2 + 30, 30)
