@@ -9,8 +9,9 @@ pangocairocffi
     :target: https://pypi.python.org/pypi/pangocairocffi
     :alt: Supported Python Versions
 
-.. image:: https://github.com/leifgehrmann/pangocairocffi/workflows/Build/badge.svg?branch=master
+.. image:: https://github.com/leifgehrmann/pangocairocffi/actions/workflows/build.yml/badge.svg
     :target: https://github.com/leifgehrmann/pangocairocffi/actions
+    :alt: Build Status
 
 .. image:: https://readthedocs.org/projects/pangocairocffi/badge/?version=latest
     :target: https://pangocairocffi.readthedocs.io/en/latest/?badge=latest
