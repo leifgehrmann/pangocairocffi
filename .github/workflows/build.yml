@@ -29,6 +29,11 @@ jobs:
           brew install libffi
           brew install pango
           brew install glib
+          # https://github.com/Kozea/CairoSVG/issues/354#issuecomment-1160552256
+          sudo ln -s /opt/homebrew/lib/libcairo* .
+          sudo ln -s /opt/homebrew/lib/libpango* .
+          sudo ln -s /opt/homebrew/lib/libgobject* .
+          sudo ln -s /opt/homebrew/lib/libglib* .
       - name: Install System Dependencies (Windows)
         if: runner.os == 'windows'
         run: |
