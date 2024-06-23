@@ -4,3 +4,4 @@ pangocffi >= 0.11.0
 flake8
 coverage
 pytest
+setuptools
