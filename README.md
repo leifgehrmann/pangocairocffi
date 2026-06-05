@@ -4,7 +4,6 @@
 [![Supported Python Versions](https://img.shields.io/pypi/pyversions/pangocairocffi.svg?style=flat)](https://pypi.python.org/pypi/pangocairocffi)
 [![Build Status](https://github.com/leifgehrmann/pangocairocffi/actions/workflows/build.yml/badge.svg)](https://github.com/leifgehrmann/pangocairocffi/actions)
 [![Documentation Status](https://readthedocs.org/projects/pangocairocffi/badge/?version=latest)](https://pangocairocffi.readthedocs.io/en/latest/?badge=latest)
-[![Code Coverage](https://codecov.io/gh/leifgehrmann/pangocairocffi/branch/master/graph/badge.svg)](https://codecov.io/gh/leifgehrmann/pangocairocffi)
 
 pangocairocffi is a [CFFI]-based set of Python bindings for the
 [cairo rendering methods with pango]. It is meant to be used in
