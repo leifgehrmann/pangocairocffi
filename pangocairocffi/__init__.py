@@ -6,12 +6,30 @@
     See README for details.
 
 """
+import ctypes.util
 import os
 import warnings
 from typing import List
-import ctypes.util
-from .ffi_build import ffi
+
 import cairocffi
+
+
+# Attempt api mode, then precompiled abi mode, then import time abi
+cffi_mode = "(unknown)"
+try:
+    # Note in ABI mode lib is already available, no dlopen() needed
+    from ._pangocairocffi import ffi, lib as pangocairo
+    cffi_mode = "api"
+except ImportError:
+    try:
+        # Note in ABI mode lib will be missing
+        from ._pangocffi import ffi
+        cffi_mode = "abi_precompiled"
+    except ImportError:
+        # Fall back to importing and parsing cffi defs
+        from .ffi_build import ffi_for_mode
+        ffi = ffi_for_mode("abi")
+        cffi_mode = "abi"
 
 
 def _dlopen(dl_name: str, generated_ffi, names: List[str]):
@@ -53,7 +71,9 @@ def _dlopen(dl_name: str, generated_ffi, names: List[str]):
     )
 
 
-pangocairo = _dlopen('pangocairo', ffi, ['pangocairo-1.0', 'pangocairo-1.0-0'])
+# Fall back to non api mode
+if cffi_mode != "api":
+    pangocairo = _dlopen('pangocairo', ffi, ['pangocairo-1.0', 'pangocairo-1.0-0']) # noqa
 
 
 # Imports are normally always put at the top of the file.

@@ -29,3 +29,9 @@ venv
 
 # Mac OS
 .DS_store
+
+# Build temporaries
+_pangocairocffi*.o
+_pangocairocffi*.so
+_pangocairocffi*.c
+_pangocairocffi*.py
