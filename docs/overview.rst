@@ -1,6 +1,13 @@
 Overview
 ========
 
+**Deprecation Notice:** pangocffi and pangocairocffi are no longer being maintained.
+There are no plans to officially handover ownership of the project to another maintainer.
+PyGObject can be used as a replacement, but will also require migrating from cairocffi to pycairo.
+For more information, please see the `PyGObject Migration Guide`_.
+
+.. _PyGObject Migration Guide: https://pangocffi.readthedocs.io/en/latest/migration-guide.html
+
 Installing
 ----------
 
